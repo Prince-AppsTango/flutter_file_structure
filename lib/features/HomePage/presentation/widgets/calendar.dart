@@ -16,7 +16,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
   var todaysEvent = "";
   final Map<DateTime, Icon> _iconsForDays = {
     DateTime(2024, 12, 16): Icon(Icons.local_airport, color: Colors.blue),
-    DateTime(2024, 12, 25): Icon(Icons.messenger_outline, color: Colors.green),
+    DateTime(2024, 12, 25): Icon(Icons.messenger_outline, color: Colors.black),
     DateTime(2024, 12, 31): Icon(Icons.party_mode, color: Colors.red),
   };
 
