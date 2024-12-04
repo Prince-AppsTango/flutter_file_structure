@@ -22,10 +22,17 @@ class _SplashPageState extends State<SplashPage> {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       backgroundColor: Colors.white,
       body: Center(
-        child: Text("Splash Screen"),
+        child: Container(
+          width: 200,
+          height: 200,
+          decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(50),
+              image: DecorationImage(
+                  image: AssetImage("assets/pngs/iconcal.png"))),
+        ),
       ),
     );
   }
