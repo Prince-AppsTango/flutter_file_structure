@@ -3,6 +3,7 @@ import 'package:flutter_calendar_carousel/classes/event.dart';
 import 'package:flutter_calendar_carousel/classes/event_list.dart';
 import 'package:flutter_calendar_carousel/flutter_calendar_carousel.dart'
     show CalendarCarousel;
+import 'package:iconcal/features/HomePage/presentation/widgets/bottom_sheet.dart';
 
 // learn from here https://github.com/hyochan/flutter_calendar_carousel
 
@@ -57,7 +58,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           }
           showBottomSheet(
               context: context,
-              builder: (BuildContext builder) => BottomSheet(
+              builder: (BuildContext builder) => CustomBottomSheet(
                     title: todaysEvent + date.toString(),
                   ));
           setState(() {
@@ -91,40 +92,6 @@ class _CalendarWidgetState extends State<CalendarWidget> {
         height: 420.0,
         selectedDateTime: _currentDate,
         daysHaveCircularBorder: true,
-      ),
-    );
-  }
-}
-
-//Bottom sheet
-
-class BottomSheet extends StatelessWidget {
-  final String title;
-  const BottomSheet({
-    required this.title,
-    super.key,
-  });
-
-  @override
-  Widget build(BuildContext context) {
-    return Container(
-      height: 400,
-      width: double.maxFinite,
-      decoration: BoxDecoration(
-          borderRadius: BorderRadius.only(
-              topLeft: Radius.circular(15), topRight: Radius.circular(15))),
-      child: Column(
-        children: [
-          Text(
-            title,
-            style: TextStyle(fontSize: 20, color: Colors.blue),
-          ),
-          OutlinedButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
-              child: Text("Close"))
-        ],
       ),
     );
   }
