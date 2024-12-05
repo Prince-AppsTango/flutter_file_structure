@@ -28,12 +28,38 @@ class CustomBottomSheet extends StatelessWidget {
                     topRight: Radius.circular(30))),
             width: double.maxFinite,
             child: Center(
-              child: Text(
-                formattedDate,
-                style: TextStyle(
-                    color: Colors.white,
-                    fontSize: 18,
-                    fontWeight: FontWeight.bold),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Container(
+                    width: 40,
+                    child: IconButton(
+                        onPressed: () {
+                          Navigator.pop(context);
+                        },
+                        icon: Icon(
+                          Icons.cancel_outlined,
+                          color: Colors.white,
+                          size: 40,
+                        )),
+                  ),
+                  SizedBox(
+                    width: 10,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(top: 5),
+                    child: Text(
+                      formattedDate,
+                      style: TextStyle(
+                          color: Colors.white,
+                          fontSize: 18,
+                          fontWeight: FontWeight.bold),
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -129,7 +155,13 @@ class CustomBottomSheet extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [Text(title), Icon(Icons.chevron_right)],
+                            children: [
+                              Text(title),
+                              Icon(
+                                Icons.chevron_right,
+                                color: Colors.white,
+                              )
+                            ],
                           ),
                         ),
                       ),
