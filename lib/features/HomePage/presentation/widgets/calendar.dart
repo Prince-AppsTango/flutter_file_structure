@@ -59,7 +59,7 @@ class _CalendarWidgetState extends State<CalendarWidget> {
           showBottomSheet(
               context: context,
               builder: (BuildContext builder) => CustomBottomSheet(
-                    title: date.toString(),
+                    title: todaysEvent,
                   ));
           setState(() {
             _currentDate = date;

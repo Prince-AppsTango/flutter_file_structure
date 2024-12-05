@@ -129,10 +129,7 @@ class CustomBottomSheet extends StatelessWidget {
                           child: Row(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text("Progress"),
-                              Icon(Icons.chevron_right)
-                            ],
+                            children: [Text(title), Icon(Icons.chevron_right)],
                           ),
                         ),
                       ),
