@@ -40,7 +40,7 @@ dependencies:
   fpdart: ^1.1.1
   flutter_svg: ^2.0.16
   flutter_calendar_carousel: ^2.4.4
-
+  intl: ^0.19.0
 dev_dependencies:
   flutter_test:
     sdk: flutter
