@@ -32,18 +32,13 @@ class MyApp extends StatelessWidget {
                 margin: EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
                   color: isToday ? Colors.blue.shade100 : Colors.white,
-                  border: Border.all(
-                      color: isInMonth ? Colors.grey : Colors.transparent),
-                  borderRadius: BorderRadius.circular(8.0),
                 ),
                 child: Stack(
                   children: [
-                    Center(
-                      child: Text(
-                        "${date.day}",
-                        style: TextStyle(
-                          color: isToday ? Colors.blue : Colors.black,
-                        ),
+                    Text(
+                      "${date.day}",
+                      style: TextStyle(
+                        color: isToday ? Colors.blue : Colors.black,
                       ),
                     ),
                     if (event.isEmpty)
