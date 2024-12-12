@@ -8,8 +8,8 @@ DateTime get _now => DateTime.now();
 class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    return CalendarControllerProvider(
-      controller: EventController()..addAll(_events),
+    return CalendarControllerProvider<Object?>(
+      controller: EventController<Object?>(),
       child: MaterialApp(
         title: 'Flutter Calendar Page Demo',
         debugShowCheckedModeBanner: false,
@@ -26,11 +26,83 @@ class MyApp extends StatelessWidget {
             onPressed: () {},
             child: Icon(Icons.add),
           ),
-          body: MonthView(),
+          body: MonthView(
+            cellBuilder: (date, event, isToday, isInMonth, hideDaysNotInMonth) {
+              return Container(
+                margin: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  color: isToday ? Colors.blue.shade100 : Colors.white,
+                  border: Border.all(
+                      color: isInMonth ? Colors.grey : Colors.transparent),
+                  borderRadius: BorderRadius.circular(8.0),
+                ),
+                child: Stack(
+                  children: [
+                    Center(
+                      child: Text(
+                        "${date.day}",
+                        style: TextStyle(
+                          color: isToday ? Colors.blue : Colors.black,
+                        ),
+                      ),
+                    ),
+                    if (event.isEmpty)
+                      Positioned(
+                        bottom: 10,
+                        right: 0,
+                        left: 0,
+                        child: Icon(
+                          Icons.event,
+                          color: Colors.orange,
+                          size: 16,
+                        ),
+                      ),
+                  ],
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
   }
+}
+
+@override
+Widget build(BuildContext context) {
+  return CalendarControllerProvider(
+    controller: EventController()..addAll(_events),
+    child: MaterialApp(
+      title: 'Flutter Calendar Page Demo',
+      debugShowCheckedModeBanner: false,
+      theme: ThemeData.light(),
+      scrollBehavior: ScrollBehavior().copyWith(
+        dragDevices: {
+          PointerDeviceKind.trackpad,
+          PointerDeviceKind.mouse,
+          PointerDeviceKind.touch,
+        },
+      ),
+      home: Scaffold(
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
+        ),
+        body: MonthView(
+          cellBuilder: (date, event, isToday, isInMonth, hideDaysNotInMonth) {
+            return Container(
+                margin: EdgeInsets.all(4.0),
+                decoration: BoxDecoration(
+                  color: isToday ? Colors.blue.shade100 : Colors.white,
+                  border: Border.all(
+                      color: isInMonth ? Colors.grey : Colors.transparent),
+                  borderRadius: BorderRadius.circular(8.0),
+                ));
+          },
+        ),
+      ),
+    ),
+  );
 }
 
 List<CalendarEventData> _events = [
