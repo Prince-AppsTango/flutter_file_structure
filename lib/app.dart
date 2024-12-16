@@ -1,11 +1,69 @@
 import 'dart:ui';
-
+import 'package:device_calendar/device_calendar.dart';
 import 'package:flutter/material.dart';
 import 'package:calendar_view/calendar_view.dart';
 
 DateTime get _now => DateTime.now();
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  final DeviceCalendarPlugin _deviceCalendarPlugin = DeviceCalendarPlugin();
+  List<Event> _events = [];
+
+  @override
+  void initState() {
+    super.initState();
+    _checkPermissionAndLoadCalendar();
+  }
+
+  Future<void> _checkPermissionAndLoadCalendar() async {
+    final permissionStatus = await _deviceCalendarPlugin.hasPermissions();
+    if (permissionStatus.data == false) {
+      final result = await _deviceCalendarPlugin.requestPermissions();
+      print('Permission request result: ${result.data}');
+      if (result.data == true) {
+        _loadCalendarEvents();
+      } else {
+        print('Permission not generated');
+      }
+    } else {
+      _loadCalendarEvents();
+    }
+  }
+
+  Future<void> _loadCalendarEvents() async {
+    final calendarResult = await _deviceCalendarPlugin.retrieveCalendars();
+    if (calendarResult.isSuccess) {
+      final calendar = calendarResult.data?.first;
+      final eventsResult = await _deviceCalendarPlugin.retrieveEvents(
+          calendar?.id,
+          RetrieveEventsParams(
+              startDate: DateTime.now(),
+              endDate: DateTime.now().add(Duration(days: 365))));
+      if (eventsResult.isSuccess) {
+        setState(() {
+          _events = eventsResult.data ?? [];
+        });
+      }
+    }
+  }
+
+  bool _hasEventsOnDate(DateTime date) {
+    for (var event in _events) {
+      if (event.start != null &&
+          event.start!.year == date.year &&
+          event.start!.month == date.month &&
+          event.start!.day == date.day) {
+        return true;
+      }
+    }
+    return false;
+  }
+
   @override
   Widget build(BuildContext context) {
     return CalendarControllerProvider<Object?>(
@@ -28,6 +86,7 @@ class MyApp extends StatelessWidget {
           ),
           body: MonthView(
             cellBuilder: (date, event, isToday, isInMonth, hideDaysNotInMonth) {
+              bool hasEvents = _hasEventsOnDate(date);
               return Container(
                 margin: EdgeInsets.all(4.0),
                 decoration: BoxDecoration(
@@ -41,7 +100,7 @@ class MyApp extends StatelessWidget {
                         color: isToday ? Colors.blue : Colors.black,
                       ),
                     ),
-                    if (event.isEmpty)
+                    if (hasEvents)
                       Positioned(
                         bottom: 10,
                         right: 0,
