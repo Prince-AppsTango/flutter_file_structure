@@ -22,7 +22,7 @@ class _HomePageState extends State<HomePage> {
             children: [
               ElevatedButton(
                   onPressed: () async {
-                    await helper.insertTask("Manoj");
+                    await helper.insertTask("tanmay Project");
                   },
                   child: Text("Create")),
               ElevatedButton(
@@ -33,12 +33,12 @@ class _HomePageState extends State<HomePage> {
                   child: Text("Read")),
               ElevatedButton(
                   onPressed: () async {
-                    await helper.updateTask(1, "Raj");
+                    await helper.updateTask(20, "Hira");
                   },
                   child: Text("Update")),
               ElevatedButton(
                   onPressed: () async {
-                    await helper.deleteTask(1);
+                    await helper.deleteTask(20);
                   },
                   child: Text("Delete")),
             ],

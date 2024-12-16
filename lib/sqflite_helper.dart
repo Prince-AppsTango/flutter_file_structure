@@ -6,6 +6,7 @@ class SqfliteHelper {
   static const tableName = "todoList";
 
   Future<Database> openMyDatabase() async {
+    print(await getDatabasesPath());
     return await openDatabase(
       join(await getDatabasesPath(), 'myToDoDatabase.db'),
       version: 1,
